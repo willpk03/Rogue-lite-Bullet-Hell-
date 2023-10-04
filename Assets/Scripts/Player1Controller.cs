@@ -22,12 +22,15 @@ public class Player1Controller : MonoBehaviour
     float bulletCD;
     float nextBullet;
     public GameObject bullet;
+    public GameObject enemy1;
     public GameObject shield;
     private Rigidbody2D rb;
     public float bulletSpeed;
     public int health;
+    public int score;
     public TMPro.TMP_Text healthtext;
     int healthcheck;
+    Vector2 mousePos;
     Camera cam;
     Transform my;
     Rigidbody2D body;   
@@ -36,6 +39,7 @@ public class Player1Controller : MonoBehaviour
     //2 = East
     //3 = South
     //4 = West
+    public float spawnDistance = 1.0f;
     void Start()
     {
         body = GetComponent<Rigidbody2D>(); 
@@ -46,10 +50,86 @@ public class Player1Controller : MonoBehaviour
         healthChange();
         cam = Camera.main;
         my = this.transform;
-        InvokeRepeating("LaunchProjectile", 2.0f, 0.3f);
+        InvokeRepeating("LaunchProjectile", 2.0f, 0.5f);
+        InvokeRepeating("CreateEnemy", 2.0f, 1.0f);
     }
-    void LaunchProjectile() {
 
+    void CreateEnemy() {
+        float xChange;
+        float yChange;
+        Camera mainCamera;
+        xChange = 0;
+        yChange = 0;
+        posX = transform.position.x;
+        posY = transform.position.y;
+        mousePos = Input. mousePosition;
+        Vector2 dir = Random.insideUnitCircle;
+        Vector3 position = Vector3.zero;
+        Debug.Log("running");
+        mainCamera = Camera.main;
+        // Get the camera's viewport dimensions
+        float cameraHeight = 2f * mainCamera.orthographicSize;
+        float cameraWidth = cameraHeight * mainCamera.aspect;
+
+        // Calculate the edges based on the camera's position and size
+        float leftEdge = mainCamera.transform.position.x - cameraWidth / 2f;
+        float rightEdge = mainCamera.transform.position.x + cameraWidth / 2f;
+        float topEdge = mainCamera.transform.position.y + cameraHeight / 2f;
+        float bottomEdge = mainCamera.transform.position.y - cameraHeight / 2f;
+
+
+        // Randomly select one of the four edges
+        int randomEdge = Random.Range(0, 4);
+
+        Vector3 spawnPosition = Vector3.zero;
+
+        // Depending on the selected edge, calculate the spawn position
+         switch (randomEdge)
+        {
+            case 0: // Left edge
+                spawnPosition = new Vector3(leftEdge, Random.Range(bottomEdge, topEdge), 0);
+                break;
+            case 1: // Right edge
+                spawnPosition = new Vector3(rightEdge, Random.Range(bottomEdge, topEdge), 0);
+                break;
+            case 2: // Top edge
+                spawnPosition = new Vector3(Random.Range(leftEdge, rightEdge), topEdge, 0);
+                break;
+            case 3: // Bottom edge
+                spawnPosition = new Vector3(Random.Range(leftEdge, rightEdge), bottomEdge, 0);
+                break;
+        }
+
+        // Spawn the object at the calculated position
+        //Debug.Log(spawnPosition);
+        // Convert viewport position to world space
+        Vector3 randomWorldPosition = cam.ViewportToWorldPoint(spawnPosition);
+
+        // Spawn the object at the calculated position
+        GameObject createdEnemy = (GameObject) Instantiate(enemy1, spawnPosition, Quaternion.identity);
+    
+    }
+
+    void LaunchProjectile() {
+        float xChange;
+        float yChange;
+        xChange = 0;
+        yChange = 0;
+        posX = transform.position.x;
+        posY = transform.position.y;
+        mousePos = Input. mousePosition;
+        GameObject bulletClone = (GameObject) Instantiate(bullet, new Vector3(posX + xChange, posY + yChange, posZ), transform.rotation);
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
+        Rigidbody2D b = bulletClone.GetComponent<Rigidbody2D>();
+        //b.position.MoveTowards
+        float speedbullet = 4;
+        Vector3 velocitybullet = speedbullet * direction;
+        //b.velocity = velocitybullet;
+        Debug.Log("test"+ direction);
+        
+        BulletController scriptComponent = bulletClone.GetComponent<BulletController>();
+        scriptComponent.myVector = velocitybullet;
     }
 
     // Update is called once per frame
@@ -64,7 +144,7 @@ public class Player1Controller : MonoBehaviour
         posX = transform.position.x;
         posY = transform.position.y;
         posZ = transform.position.z;
-        Vector2 mousePos = Input. mousePosition;
+        mousePos = Input. mousePosition;
         if (Input.GetKey(KeyCode.W))
         {
             body.velocity = new Vector2(0, 1 * runSpeed);
@@ -103,13 +183,14 @@ public class Player1Controller : MonoBehaviour
         Vector2 direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
         transform.up = direction;
         
+        
             
     }
 
    private void OnTriggerEnter2D(Collider2D collision)
     {
     if (collision.gameObject.tag == "Bullet") {
-        Destroy(collision.gameObject);
+        /*Destroy(collision.gameObject);
             
         health = health - 1;
         healthChange();
@@ -118,7 +199,7 @@ public class Player1Controller : MonoBehaviour
                     
             Debug.Log("GAMEOVER");
             Destroy(gameObject);
-        }
+        }*/
     } else {
         Debug.Log(collision.gameObject.tag);
     }
