@@ -9,6 +9,9 @@ public class enemy1Controller : MonoBehaviour
     Vector3 direction;
     GameObject playerObject;
     public int health = 1; 
+    public Color targetColor = Color.white; // Change this to the desired color
+    private Color originalColor;
+    private Renderer rend;
     void Start()
     {
         // Find the player GameObject by its tag
@@ -24,6 +27,9 @@ public class enemy1Controller : MonoBehaviour
         {
             Debug.LogError("Player not found with tag 'Player'. Make sure to assign the correct tag to the player GameObject.");
         }
+
+        rend = GetComponent<Renderer>();
+        originalColor = rend.material.color;
     }
 
 
@@ -61,6 +67,7 @@ public class enemy1Controller : MonoBehaviour
         if (collision.gameObject.tag == "Player1") {
             Player1Controller scriptComponent = playerObject.GetComponent<Player1Controller>();
             scriptComponent.health = scriptComponent.health - 1;
+            scriptComponent.healthChange();
             Destroy(gameObject);
             if(scriptComponent.health <= 0) {
                 Destroy(playerObject);
@@ -68,5 +75,15 @@ public class enemy1Controller : MonoBehaviour
         } else {
             //Debug.Log(collision.gameObject.tag);
         }
+    }
+
+    public IEnumerator healthChange() {
+        rend.material.color = targetColor;
+        yield return new WaitForSeconds(1.0f);
+        rend.material.color = originalColor;
+    }
+
+    public int isClose(int min, int max, int point){
+        scoretext.text = "Health: " + score.ToString();
     }
 }

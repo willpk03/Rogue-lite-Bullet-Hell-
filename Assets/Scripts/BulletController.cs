@@ -17,6 +17,7 @@ public class BulletController : MonoBehaviour
     public Vector3 myVector;
     void Start()
     {
+        target = GameObject.FindWithTag("Player1");
         posX = target.transform.position.x;
         posY = target.transform.position.y;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -29,11 +30,12 @@ public class BulletController : MonoBehaviour
     {
         //Sets speed towards mouse
         //Problem occuring need it to go towards the direction of the MOUSE but not consider its actuall location
+        
         posX = target.transform.position.x;
         posY = target.transform.position.y;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
-        Debug.Log("test2" + direction);
+        //Debug.Log("test2" + direction);
         rb.velocity = myVector;
 
         //Checks if needs to delete
@@ -53,11 +55,17 @@ public class BulletController : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log("Bullet hit enemy");
         if (collision.gameObject.tag == "Enemy") {
+            
             enemy1Controller scriptComponent = collision.gameObject.GetComponent<enemy1Controller>();
             scriptComponent.health = scriptComponent.health - 1;
+            Debug.Log("Enemy Hit");
             Player1Controller playerscriptComponent = target.GetComponent<Player1Controller>();
-            playerscriptComponent.score = playerscriptComponent.score + 1;
+            //playerscriptComponent.score = 10;
+            playerscriptComponent.scoreChange();
+            StartCoroutine(scriptComponent.healthChange());
+            Destroy(gameObject);
         } else {
             //Debug.Log(collision.gameObject.tag);
         }

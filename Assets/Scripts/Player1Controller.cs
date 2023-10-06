@@ -23,12 +23,15 @@ public class Player1Controller : MonoBehaviour
     float nextBullet;
     public GameObject bullet;
     public GameObject enemy1;
+    public GameObject enemy2;
+    GameObject spawnedEnemy;
     public GameObject shield;
     private Rigidbody2D rb;
     public float bulletSpeed;
     public int health;
     public int score;
     public TMPro.TMP_Text healthtext;
+    public TMPro.TMP_Text scoretext;
     int healthcheck;
     Vector2 mousePos;
     Camera cam;
@@ -62,10 +65,28 @@ public class Player1Controller : MonoBehaviour
         yChange = 0;
         posX = transform.position.x;
         posY = transform.position.y;
+
+        //Select which enemy to spawn Scaffold
+        int randomEnemyType;
+        if(score > 10){
+            randomEnemyType = Random.Range(0,2);
+        } else { 
+            randomEnemyType = Random.Range(0,2);
+        }
+        Debug.Log(randomEnemyType);
+        switch (randomEnemyType) {
+            case 0: //Type 1
+                spawnedEnemy = enemy1;
+                break;
+            case 1: //type 2
+                spawnedEnemy = enemy2;
+                break;
+            
+        }
+
         mousePos = Input. mousePosition;
         Vector2 dir = Random.insideUnitCircle;
         Vector3 position = Vector3.zero;
-        Debug.Log("running");
         mainCamera = Camera.main;
         // Get the camera's viewport dimensions
         float cameraHeight = 2f * mainCamera.orthographicSize;
@@ -106,7 +127,7 @@ public class Player1Controller : MonoBehaviour
         Vector3 randomWorldPosition = cam.ViewportToWorldPoint(spawnPosition);
 
         // Spawn the object at the calculated position
-        GameObject createdEnemy = (GameObject) Instantiate(enemy1, spawnPosition, Quaternion.identity);
+        GameObject createdEnemy = (GameObject) Instantiate(spawnedEnemy, spawnPosition, Quaternion.identity);
     
     }
 
@@ -126,7 +147,6 @@ public class Player1Controller : MonoBehaviour
         float speedbullet = 4;
         Vector3 velocitybullet = speedbullet * direction;
         //b.velocity = velocitybullet;
-        Debug.Log("test"+ direction);
         
         BulletController scriptComponent = bulletClone.GetComponent<BulletController>();
         scriptComponent.myVector = velocitybullet;
@@ -207,7 +227,11 @@ public class Player1Controller : MonoBehaviour
         
     }
 
-    private void healthChange() {
+    public void healthChange() {
         healthtext.text = "Health: " + health.ToString();
+    }
+
+    public void scoreChange() {
+        scoretext.text = "Health: " + score.ToString();
     }
 }
