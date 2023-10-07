@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class Player1Controller : MonoBehaviour
 {
     public float speed;
@@ -32,11 +33,13 @@ public class Player1Controller : MonoBehaviour
     public int score;
     public TMPro.TMP_Text healthtext;
     public TMPro.TMP_Text scoretext;
+    public GameObject GameOverUI;
     int healthcheck;
     Vector2 mousePos;
     Camera cam;
     Transform my;
-    Rigidbody2D body;   
+    Rigidbody2D body;
+    public DataHolder dataHolder;   
     //Direction
     //1= North
     //2 = East
@@ -49,7 +52,7 @@ public class Player1Controller : MonoBehaviour
         direction = 1;
         targetPosition = new Vector2(0.0f, 0.0f);
         bulletSpeed = 2f;
-        health = 3;
+        health = dataHolder.myData.myVariable;
         healthChange();
         cam = Camera.main;
         my = this.transform;
@@ -143,7 +146,6 @@ public class Player1Controller : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
         Rigidbody2D b = bulletClone.GetComponent<Rigidbody2D>();
-        //b.position.MoveTowards
         float speedbullet = 4;
         Vector3 velocitybullet = speedbullet * direction;
         //b.velocity = velocitybullet;
@@ -229,9 +231,18 @@ public class Player1Controller : MonoBehaviour
 
     public void healthChange() {
         healthtext.text = "Health: " + health.ToString();
+        if(health <= 0) {
+            //Handles Gameover screen
+            GameOverUI.SetActive(true);
+
+            Destroy(gameObject);
+                      
+            
+            //SceneManager.LoadScene("HomeScreen");
+        }
     }
 
     public void scoreChange() {
-        scoretext.text = "Health: " + score.ToString();
+        scoretext.text = "Score: " + score.ToString();
     }
 }

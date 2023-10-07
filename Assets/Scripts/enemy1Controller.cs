@@ -69,9 +69,7 @@ public class enemy1Controller : MonoBehaviour
             scriptComponent.health = scriptComponent.health - 1;
             scriptComponent.healthChange();
             Destroy(gameObject);
-            if(scriptComponent.health <= 0) {
-                Destroy(playerObject);
-            }
+            
         } else {
             //Debug.Log(collision.gameObject.tag);
         }
@@ -83,7 +81,5 @@ public class enemy1Controller : MonoBehaviour
         rend.material.color = originalColor;
     }
 
-    public int isClose(int min, int max, int point){
-        scoretext.text = "Health: " + score.ToString();
-    }
+    
 }

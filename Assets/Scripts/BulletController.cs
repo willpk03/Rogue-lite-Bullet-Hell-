@@ -31,8 +31,10 @@ public class BulletController : MonoBehaviour
         //Sets speed towards mouse
         //Problem occuring need it to go towards the direction of the MOUSE but not consider its actuall location
         
-        posX = target.transform.position.x;
-        posY = target.transform.position.y;
+        //posX = target.transform.position.x;
+        //posY = target.transform.position.y;
+        posX = transform.position.x;
+        posY = transform.position.y;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
         //Debug.Log("test2" + direction);
@@ -62,7 +64,7 @@ public class BulletController : MonoBehaviour
             scriptComponent.health = scriptComponent.health - 1;
             Debug.Log("Enemy Hit");
             Player1Controller playerscriptComponent = target.GetComponent<Player1Controller>();
-            //playerscriptComponent.score = 10;
+            playerscriptComponent.score = playerscriptComponent.score + 1;
             playerscriptComponent.scoreChange();
             StartCoroutine(scriptComponent.healthChange());
             Destroy(gameObject);
