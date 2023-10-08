@@ -20,7 +20,6 @@ public class Player1Controller : MonoBehaviour
     public float runSpeed = 1.0f;
     public float AngleDeg;
     float movelimiter;
-    float bulletCD;
     float nextBullet;
     public GameObject bullet;
     public GameObject enemy1;
@@ -29,8 +28,10 @@ public class Player1Controller : MonoBehaviour
     public GameObject shield;
     private Rigidbody2D rb;
     public float bulletSpeed;
+    public float bulletCD;
     public int health;
     public int score;
+    public int BulletPierce;
     public TMPro.TMP_Text healthtext;
     public TMPro.TMP_Text scoretext;
     public GameObject GameOverUI;
@@ -51,12 +52,15 @@ public class Player1Controller : MonoBehaviour
         body = GetComponent<Rigidbody2D>(); 
         direction = 1;
         targetPosition = new Vector2(0.0f, 0.0f);
-        bulletSpeed = 2f;
-        health = dataHolder.myData.myVariable;
+        bulletCD = (float)dataHolder.myData.reloadCD;
+        health = dataHolder.myData.health;
+        runSpeed = dataHolder.myData.speed;
+        BulletPierce = dataHolder.myData.pierce;
         healthChange();
         cam = Camera.main;
         my = this.transform;
-        InvokeRepeating("LaunchProjectile", 2.0f, 0.5f);
+        Debug.Log(bulletCD);
+        InvokeRepeating("LaunchProjectile", 2.0f, bulletCD);
         InvokeRepeating("CreateEnemy", 2.0f, 1.0f);
     }
 
@@ -152,6 +156,7 @@ public class Player1Controller : MonoBehaviour
         
         BulletController scriptComponent = bulletClone.GetComponent<BulletController>();
         scriptComponent.myVector = velocitybullet;
+        scriptComponent.health = BulletPierce;
     }
 
     // Update is called once per frame
@@ -234,7 +239,10 @@ public class Player1Controller : MonoBehaviour
         if(health <= 0) {
             //Handles Gameover screen
             GameOverUI.SetActive(true);
-
+            if(dataHolder.myData.HScredits < score){
+                dataHolder.myData.HScredits = score;
+            }
+            
             Destroy(gameObject);
                       
             

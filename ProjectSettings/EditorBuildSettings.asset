@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HomeScreen.unity
     guid: 49911666c5aa58343ab3220a75f588b6
+  - enabled: 1
+    path: Assets/Scenes/upgradeScreen.unity
+    guid: 2c20abab80f376c4babbfb7e8d74d052
   m_configObjects: {}

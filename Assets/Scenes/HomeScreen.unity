@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dfbc1a3a217134bb273cb81c0a48cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MainScreen
+  sceneName: upgradescreen
 --- !u!4 &696009077
 Transform:
   m_ObjectHideFlags: 0

@@ -711,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dfbc1a3a217134bb273cb81c0a48cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: HomeScreen
+  sceneName: upgradeScreen
 --- !u!4 &992808307
 Transform:
   m_ObjectHideFlags: 0
@@ -725,6 +725,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1091644280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091644282}
+  - component: {fileID: 1091644281}
+  m_Layer: 0
+  m_Name: Dataholder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1091644281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091644280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 004590717a095954cb66597adbc79d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myData: {fileID: 11400000, guid: 545e3b8d448fdd44ab0c777114ba3e1d, type: 2}
+--- !u!4 &1091644282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091644280}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 652.4732, y: 452.91577, z: -45.174965}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1139848123
 GameObject:
@@ -1570,6 +1614,10 @@ PrefabInstance:
       propertyPath: GameOverUI
       value: 
       objectReference: {fileID: 1496747638}
+    - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
+      propertyPath: dataHolder
+      value: 
+      objectReference: {fileID: 1091644281}
     - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
       propertyPath: healthtext
       value: 

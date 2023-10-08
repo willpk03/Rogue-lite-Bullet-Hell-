@@ -12,6 +12,7 @@ public class BulletController : MonoBehaviour
     public GameObject target;
     float posX;
     float posY;
+    public int health;
      Vector2 direction;
     public float speed = 4f;
     public Vector3 myVector;
@@ -21,7 +22,7 @@ public class BulletController : MonoBehaviour
         posX = target.transform.position.x;
         posY = target.transform.position.y;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-       direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
+        direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
          rb = GetComponent<Rigidbody2D>();
     }
 
@@ -62,12 +63,16 @@ public class BulletController : MonoBehaviour
             
             enemy1Controller scriptComponent = collision.gameObject.GetComponent<enemy1Controller>();
             scriptComponent.health = scriptComponent.health - 1;
+            health = health - 1;
             Debug.Log("Enemy Hit");
             Player1Controller playerscriptComponent = target.GetComponent<Player1Controller>();
             playerscriptComponent.score = playerscriptComponent.score + 1;
             playerscriptComponent.scoreChange();
             StartCoroutine(scriptComponent.healthChange());
-            Destroy(gameObject);
+            if(health <= 0) {
+                Destroy(gameObject);
+            }
+            
         } else {
             //Debug.Log(collision.gameObject.tag);
         }
