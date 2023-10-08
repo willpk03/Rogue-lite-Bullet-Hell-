@@ -1607,6 +1607,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
+      propertyPath: enemy3
+      value: 
+      objectReference: {fileID: 8456894709321861227, guid: 4001ffe7e56259a40ac18ca748d90568, type: 3}
+    - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
       propertyPath: scoretext
       value: 
       objectReference: {fileID: 49750563}

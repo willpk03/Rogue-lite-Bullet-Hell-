@@ -24,6 +24,7 @@ public class Player1Controller : MonoBehaviour
     public GameObject bullet;
     public GameObject enemy1;
     public GameObject enemy2;
+    public GameObject enemy3;
     GameObject spawnedEnemy;
     public GameObject shield;
     private Rigidbody2D rb;
@@ -75,10 +76,10 @@ public class Player1Controller : MonoBehaviour
 
         //Select which enemy to spawn Scaffold
         int randomEnemyType;
-        if(score > 10){
-            randomEnemyType = Random.Range(0,2);
+        if(score < 20){
+            randomEnemyType = 0;
         } else { 
-            randomEnemyType = Random.Range(0,2);
+            randomEnemyType = Random.Range(0,3);
         }
         Debug.Log(randomEnemyType);
         switch (randomEnemyType) {
@@ -87,6 +88,9 @@ public class Player1Controller : MonoBehaviour
                 break;
             case 1: //type 2
                 spawnedEnemy = enemy2;
+                break;
+            case 2: //type 3
+                spawnedEnemy = enemy3;
                 break;
             
         }
