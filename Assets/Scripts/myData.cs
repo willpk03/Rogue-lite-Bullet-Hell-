@@ -8,4 +8,5 @@ public class myData : ScriptableObject
     public int HScredits; //Players highest reached Score
     public double reloadCD; //Players Bullet CD
     public int pierce; //Bullet will do deal 1 Damage X amount of times
+    public string BulletType; //What sort of bullet is being used
 }

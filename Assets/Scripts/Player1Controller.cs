@@ -22,6 +22,7 @@ public class Player1Controller : MonoBehaviour
     float movelimiter;
     float nextBullet;
     public GameObject bullet;
+    public GameObject bulletB;
     public GameObject enemy1;
     public GameObject enemy2;
     public GameObject enemy3;
@@ -41,6 +42,7 @@ public class Player1Controller : MonoBehaviour
     Camera cam;
     Transform my;
     Rigidbody2D body;
+    public string BulletType;
     public DataHolder dataHolder;   
     //Direction
     //1= North
@@ -57,6 +59,7 @@ public class Player1Controller : MonoBehaviour
         health = dataHolder.myData.health;
         runSpeed = dataHolder.myData.speed;
         BulletPierce = dataHolder.myData.pierce;
+        BulletType = dataHolder.myData.BulletType; 
         healthChange();
         cam = Camera.main;
         my = this.transform;
@@ -150,17 +153,32 @@ public class Player1Controller : MonoBehaviour
         posX = transform.position.x;
         posY = transform.position.y;
         mousePos = Input. mousePosition;
-        GameObject bulletClone = (GameObject) Instantiate(bullet, new Vector3(posX + xChange, posY + yChange, posZ), transform.rotation);
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        Vector2 direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
-        Rigidbody2D b = bulletClone.GetComponent<Rigidbody2D>();
-        float speedbullet = 4;
-        Vector3 velocitybullet = speedbullet * direction;
-        //b.velocity = velocitybullet;
+        if(BulletType == "A") {
+            GameObject bulletClone = (GameObject) Instantiate(bullet, new Vector3(posX + xChange, posY + yChange, posZ), transform.rotation);
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector2 direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
+            Rigidbody2D b = bulletClone.GetComponent<Rigidbody2D>();
+            float speedbullet = 4;
+            Vector3 velocitybullet = speedbullet * direction;
+            //b.velocity = velocitybullet;
+            
+            BulletController scriptComponent = bulletClone.GetComponent<BulletController>();
+            scriptComponent.myVector = velocitybullet;
+            scriptComponent.health = BulletPierce;
+        } else if(BulletType == "B"){
+            GameObject bulletClone = (GameObject) Instantiate(bulletB, new Vector3(posX + xChange, posY + yChange, posZ), transform.rotation);
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector2 direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
+            Rigidbody2D b = bulletClone.GetComponent<Rigidbody2D>();
+            float speedbullet = 4;
+            Vector3 velocitybullet = speedbullet * direction;
+            //b.velocity = velocitybullet;
+            
+            BulletController scriptComponent = bulletClone.GetComponent<BulletController>();
+            scriptComponent.myVector = velocitybullet;
+            scriptComponent.health = BulletPierce;
+        }
         
-        BulletController scriptComponent = bulletClone.GetComponent<BulletController>();
-        scriptComponent.myVector = velocitybullet;
-        scriptComponent.health = BulletPierce;
     }
 
     // Update is called once per frame
