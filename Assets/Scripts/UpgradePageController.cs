@@ -122,7 +122,7 @@ public class UpgradePageController : MonoBehaviour
         dataHolder.myData.reloadCD = reloadCD;
         dataHolder.myData.pierce = pierce;
         dataHolder.myData.speed = defspeed + (speed -defspeed)/4;
-        dataHolder.myData.BulletType = "B";
+        dataHolder.myData.BulletType = "A";
     }
 
 }
