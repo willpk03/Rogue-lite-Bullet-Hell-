@@ -1,6 +1,7 @@
 <h2>Rogue-lite-Bullet-Hell-</h2> 
 This is a project created to test an idea of creating an arcade game with a slight touch of roguelite aspect of slowly going in and out of a dungeon upgrading your character before each entry into the 'dungeon'. 
-
+<h3>How to view this project</h3>
+You can view this project on Unity 2020.3.29f1. Ensure you download this repisitory and in the unity laucher click on add project from disk in the open drop down menu.
 <h3> How it was designed</h3>
 The idea of how to develop it was by seperating the system in too the two parts. Each time you'd die the player would be sent back to the 'store' page where they would have all their stats and credits reset. Later on, the credits were decided to be equal to the player's current high score. 
 From here the plan was to set up a system that could be easily duplicated for any other stat I had in mind or to allow modifications to the bullet type and or player character. 
