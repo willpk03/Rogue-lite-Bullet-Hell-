@@ -73,8 +73,26 @@ public class BulletController : MonoBehaviour
                 Destroy(gameObject);
             }
             
-        } else {
+        } else if (collision.gameObject.tag == "SlimeBoss") {
+            slimeBossController sbComponent = collision.gameObject.GetComponent<slimeBossController>();
+            Player1Controller playerscriptComponent = target.GetComponent<Player1Controller>();
+            playerscriptComponent.score = playerscriptComponent.score + 1;
+            playerscriptComponent.scoreChange();
+            sbComponent.splitOff();
+            health = health - 1;
+            if(health <= 0) {
+                Destroy(gameObject);
+            }
             //Debug.Log(collision.gameObject.tag);
+        }  else if (collision.gameObject.tag == "TeleporterBoss") {
+            TeleporterHandler scriptComponent = collision.gameObject.GetComponent<TeleporterHandler>();
+            scriptComponent.health = scriptComponent.health - 1;
+            health = health - 1;
+            scriptComponent.randTeleport();
+
+            Player1Controller playerscriptComponent = target.GetComponent<Player1Controller>();
+            playerscriptComponent.score = playerscriptComponent.score + 1;
+            playerscriptComponent.scoreChange();
         }
     }
 }

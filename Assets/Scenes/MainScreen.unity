@@ -1619,6 +1619,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 49750563}
     - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
+      propertyPath: slimeBoss
+      value: 
+      objectReference: {fileID: 7983016499280750454, guid: b81e70fd0fcdf78498a3b9302a558b0c, type: 3}
+    - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
       propertyPath: GameOverUI
       value: 
       objectReference: {fileID: 1496747638}

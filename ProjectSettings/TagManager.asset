@@ -9,6 +9,8 @@ TagManager:
   - Player1
   - Enemy
   - ForceField
+  - SlimeBoss
+  - SlimeBossController
   layers:
   - Default
   - TransparentFX

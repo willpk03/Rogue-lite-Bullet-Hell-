@@ -26,6 +26,9 @@ public class Player1Controller : MonoBehaviour
     public GameObject enemy1;
     public GameObject enemy2;
     public GameObject enemy3;
+    public GameObject enemy4;
+    public GameObject slimeBoss;
+    public int spawnAmount;
     GameObject spawnedEnemy;
     public GameObject shield;
     private Rigidbody2D rb;
@@ -44,6 +47,8 @@ public class Player1Controller : MonoBehaviour
     Rigidbody2D body;
     public string BulletType;
     public DataHolder dataHolder;   
+    public bool slimeSpawned;
+
     //Direction
     //1= North
     //2 = East
@@ -64,8 +69,10 @@ public class Player1Controller : MonoBehaviour
         cam = Camera.main;
         my = this.transform;
         Debug.Log(bulletCD);
+        spawnAmount = 0;
         InvokeRepeating("LaunchProjectile", 2.0f, bulletCD);
         InvokeRepeating("CreateEnemy", 2.0f, 1.0f);
+        slimeSpawned = false;
     }
 
     void CreateEnemy() {
@@ -81,8 +88,10 @@ public class Player1Controller : MonoBehaviour
         int randomEnemyType;
         if(score < 20){
             randomEnemyType = 0;
-        } else { 
+        } else if (score < 50) { 
             randomEnemyType = Random.Range(0,3);
+        }else{
+            randomEnemyType = Random.Range(0,4);
         }
         Debug.Log(randomEnemyType);
         switch (randomEnemyType) {
@@ -94,6 +103,9 @@ public class Player1Controller : MonoBehaviour
                 break;
             case 2: //type 3
                 spawnedEnemy = enemy3;
+                break;
+            case 3: 
+                spawnedEnemy = enemy4;
                 break;
             
         }
@@ -140,8 +152,25 @@ public class Player1Controller : MonoBehaviour
         // Convert viewport position to world space
         Vector3 randomWorldPosition = cam.ViewportToWorldPoint(spawnPosition);
 
+        if (spawnAmount == 40) {
+            //Run Boss phase 
+            if(slimeSpawned == false){
+                Instantiate(slimeBoss, spawnPosition, Quaternion.identity);
+                slimeSpawned = true;
+                Debug.Log("Slime Boss Spawned.");
+                Debug.Log("---------------------------");
+            } else {
+                Debug.Log("Slime already spawned");
+            }
+            
+            //Only change spawnAmount when the boss has died
+        } else {
+            GameObject createdEnemy = (GameObject) Instantiate(spawnedEnemy, spawnPosition, Quaternion.identity);
+            spawnAmount++;
+        }
         // Spawn the object at the calculated position
-        GameObject createdEnemy = (GameObject) Instantiate(spawnedEnemy, spawnPosition, Quaternion.identity);
+        
+        
     
     }
 
