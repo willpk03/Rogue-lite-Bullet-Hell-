@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+[System.Serializable]
+public class PercentileObject
+{
+    public float threshold;
+    public GameObject gameObject;
+}
 public class Player1Controller : MonoBehaviour
 {
     public float speed;
@@ -55,6 +61,12 @@ public class Player1Controller : MonoBehaviour
     //3 = South
     //4 = West
     public float spawnDistance = 1.0f;
+
+    public List<PercentileObject> percentileObjects = new List<PercentileObject>(){
+        new PercentileObject { threshold = 70f, gameObject = null }, // Assign the GameObject for the 70th percentile in the Unity Inspector
+        new PercentileObject { threshold = 80f, gameObject = null }, // Assign the GameObject for the 80th percentile in the Unity Inspector
+        new PercentileObject { threshold = 90f, gameObject = null }  // Assign the GameObject for the 90th percentile in the Unity Inspector
+    };
     void Start()
     {
         body = GetComponent<Rigidbody2D>(); 
@@ -85,32 +97,46 @@ public class Player1Controller : MonoBehaviour
         posY = transform.position.y;
 
         //Select which enemy to spawn Scaffold
-        int randomEnemyType;
+        int randomNumber;
+
+
         if(score < 20){
-            randomEnemyType = 0;
+           randomNumber = Random.Range(1, 50);
         } else if (score < 50) { 
-            randomEnemyType = Random.Range(0,3);
+            randomNumber = Random.Range(1, 90);
         }else{
-            randomEnemyType = Random.Range(0,4);
+            randomNumber = Random.Range(40, 101);
         }
-        Debug.Log(randomEnemyType);
-        switch (randomEnemyType) {
-            case 0: //Type 1
-                spawnedEnemy = enemy1;
-                break;
-            case 1: //type 2
-                spawnedEnemy = enemy2;
-                break;
-            case 2: //type 3
-                spawnedEnemy = enemy3;
-                break;
-            case 3: 
-                spawnedEnemy = enemy4;
-                break;
-            
+        float highestPercentile = -1f;
+        GameObject highestPercentileObject = null;
+        Debug.Log("Random number generated: " + randomNumber);
+        // Check each specified percentile
+        foreach (var percentileObject in percentileObjects)
+        {
+            float threshold = percentileObject.threshold;
+            GameObject obj = percentileObject.gameObject;
+
+            if (randomNumber >= threshold && threshold > highestPercentile)
+            {
+                // Update the highest percentile and its corresponding GameObject
+                highestPercentile = threshold;
+                highestPercentileObject = obj;
+                Debug.Log("New highest value");
+            }
         }
 
-        mousePos = Input. mousePosition;
+        // Checks to ensure object wasn't NULL
+            if (highestPercentileObject == null)
+            {
+                // Code to be executed if the random number is outside all specified percentiles
+                Debug.Log($"Random number {randomNumber} is outside all specified percentiles.");
+            }else {
+                //Sets the object to be the spawned object
+                spawnedEnemy = highestPercentileObject;
+            }
+        
+
+        mousePos = Input.mousePosition;
         Vector2 dir = Random.insideUnitCircle;
         Vector3 position = Vector3.zero;
         mainCamera = Camera.main;
