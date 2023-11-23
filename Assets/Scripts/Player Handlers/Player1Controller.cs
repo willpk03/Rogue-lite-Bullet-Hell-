@@ -286,6 +286,8 @@ public class Player1Controller : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 direction = new Vector2(mousePos.x - posX, mousePos.y - posY);
         transform.up = direction;
+
+        
         
         
             
