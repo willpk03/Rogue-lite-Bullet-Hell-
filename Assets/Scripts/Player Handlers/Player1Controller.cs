@@ -10,6 +10,13 @@ public class PercentileObject
     public float threshold;
     public GameObject gameObject;
 }
+
+public class PlayerSprites
+{
+    public string SpriteName;
+    public Texture2D spriteUsed;
+}
+
 public class Player1Controller : MonoBehaviour
 {
     public float speed;
@@ -54,30 +61,37 @@ public class Player1Controller : MonoBehaviour
     public string BulletType;
     public DataHolder dataHolder;   
     public bool slimeSpawned;
-
     //Direction
     //1= North
     //2 = East
     //3 = South
     //4 = West
     public float spawnDistance = 1.0f;
+    public Sprite defaultSprite;
+    public Sprite damagedSprite;
 
+
+
+    
     public List<PercentileObject> percentileObjects = new List<PercentileObject>(){
         new PercentileObject { threshold = 70f, gameObject = null }, // Assign the GameObject for the 70th percentile in the Unity Inspector
         new PercentileObject { threshold = 80f, gameObject = null }, // Assign the GameObject for the 80th percentile in the Unity Inspector
         new PercentileObject { threshold = 90f, gameObject = null }  // Assign the GameObject for the 90th percentile in the Unity Inspector
     };
+
+
+
     void Start()
     {
-        body = GetComponent<Rigidbody2D>(); 
+        body = GetComponent<Rigidbody2D>();
         direction = 1;
         targetPosition = new Vector2(0.0f, 0.0f);
         bulletCD = (float)dataHolder.myData.reloadCD;
         health = dataHolder.myData.health;
         runSpeed = dataHolder.myData.speed;
         BulletPierce = dataHolder.myData.pierce;
-        BulletType = dataHolder.myData.BulletType; 
-        healthChange();
+        BulletType = dataHolder.myData.BulletType;
+        healthSet();
         cam = Camera.main;
         my = this.transform;
         Debug.Log(bulletCD);
@@ -86,7 +100,6 @@ public class Player1Controller : MonoBehaviour
         InvokeRepeating("CreateEnemy", 2.0f, 1.0f);
         slimeSpawned = false;
     }
-
     void CreateEnemy() {
         float xChange;
         float yChange;
@@ -315,7 +328,8 @@ public class Player1Controller : MonoBehaviour
 
     public void healthChange() {
         healthtext.text = "Health: " + health.ToString();
-        if(health <= 0) {
+        StartCoroutine(SpriteDamage());
+        if (health <= 0) {
             //Handles Gameover screen
             GameOverUI.SetActive(true);
             if(dataHolder.myData.HScredits < score){
@@ -327,6 +341,28 @@ public class Player1Controller : MonoBehaviour
             
             //SceneManager.LoadScene("HomeScreen");
         }
+
+
+    }
+
+    IEnumerator SpriteDamage()
+    {
+        //Print the time of when the function is first called.
+        obj.GetComponent<SpriteRenderer>().sprite = damagedSprite;
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(0.2f);
+
+        //After we have waited 5 seconds print the time again.
+        obj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+    }
+
+
+
+    public void healthSet()
+    {
+        healthtext.text = "Health: " + health.ToString();
+
     }
 
     public void scoreChange() {

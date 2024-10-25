@@ -1051,6 +1051,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681902065}
   m_CullTransparentMesh: 1
+--- !u!1 &1775926710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7393797279915537280, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
+  m_PrefabInstance: {fileID: 7393797280111317931}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1829663004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,6 +1282,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 4ad02b87dbd28e7488bf46e27d30c163, type: 3}
     - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
+      propertyPath: obj
+      value: 
+      objectReference: {fileID: 1775926710}
+    - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
       propertyPath: score
       value: 0
       objectReference: {fileID: 0}
@@ -1308,6 +1317,14 @@ PrefabInstance:
       propertyPath: healthtext
       value: 
       objectReference: {fileID: 1530579900}
+    - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
+      propertyPath: damagedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 71cef46635efed246ad862a7ec77a14e, type: 3}
+    - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
+      propertyPath: defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4ad02b87dbd28e7488bf46e27d30c163, type: 3}
     - target: {fileID: 7393797279915537285, guid: 65c428b0c76c2064298ef47fce1020ca, type: 3}
       propertyPath: percentileObjects.Array.size
       value: 5

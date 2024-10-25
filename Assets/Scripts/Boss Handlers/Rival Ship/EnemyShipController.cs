@@ -73,8 +73,8 @@ public class EnemyShipController : MonoBehaviour
 
     private void Update()
     {
-        //Quaternion rotation = Quaternion.LookRotation(playerObject.transform.position - transform.position, transform.TransformDirection(Vector3.up));
-        //transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+        Quaternion rotation = Quaternion.LookRotation(playerObject.transform.position - transform.position, transform.TransformDirection(Vector3.up));
+        transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
         if (isRepelling)
         {
             // Move away from the player
