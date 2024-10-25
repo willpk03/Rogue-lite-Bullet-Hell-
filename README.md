@@ -12,7 +12,7 @@ Run In, takes two mains area, that being data that is changed inbetween each att
 
 <h3>The Shop</h3>
 The shop main goal is to be a simple area for the player to buy new stats and quickly try out new builds and jump right back in. The current concept only includes 4 stats but this could go further beyond, to include different weapons, abilities or more stats.  
-<img src="img2.PNG" alt="The upgrade screen of the game">
+<img src="img1.PNG" alt="The upgrade screen of the game">
 <br>
 
 All the data for that is transfered between scenes is stored in a ScriptableObject. 
@@ -33,7 +33,7 @@ All the data for that is transfered between scenes is stored in a ScriptableObje
 
 
 <h3> Battle Screen</h3>
-<img src="img1.PNG" alt="The main screen of the game">
+<img src="img2.PNG" alt="The main screen of the game">
 
 <h4> Handling Enemy Spawns </h4> 
 I wanted to mix both a static progression into the difficulty while also having a randomness that will change how each floor goes without putting the player off. This was done by aplying weights for each enemy spawn and setting a lowest possible floor spawn. While to ensure that new discovered enemies don't instantly overwhelm the player, no new spawn will appear twice until the player has at least defeated them once.
